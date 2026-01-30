@@ -1,0 +1,800 @@
+openapi: 3.1.0
+info:
+  title: SAR Umbria OpenAPI - Servizi per il prescrittore
+  version: v1 
+servers:
+  - url: https://api-salute-test.regione.umbria.it/sar
+    description: Ambiente di test
+    x-sandbox: true
+  - url: https://api-salute.regione.umbria.it/sar
+    description: Ambiente di produzione
+    x-sandbox: false
+paths:
+  /v1/servizi-prescrittore/richiesta-lotto-nre:
+    post:
+      tags:
+        - Servizi comuni
+      operationId: richiestaLottoNRE
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LottoRichiestaNRE'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LottoRicevutaNRE'
+  /v1/servizi-prescrittore/dem-nre-utilizzati:
+    post:
+      tags:
+        - Servizi comuni
+      operationId: nreUtilizzati
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InterrogaNreUtilRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InterrogaNreUtilRicevuta'
+  /v1/servizi-prescrittore/sostituzione-medico:
+    post:
+      tags:
+        - Servizi comuni
+      operationId: cambioMedico
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DichiarazioneSostituzioneMedicoRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DichiarazioneSostituzioneMedicoRicevuta'
+  /v1/servizi-prescrittore/dem-invio-prescritto:
+    post:
+      tags:
+        - Ricette dematerializzate
+      operationId: demInvioPrescritto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvioPrescrittoRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InvioPrescrittoRicevuta'
+  /v1/servizi-prescrittore/dem-visualizza-prescritto:
+    post:
+      tags:
+        - Ricette dematerializzate
+      operationId: demVisualizzaPrescritto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VisualizzaPrescrittoRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VisualizzaPrescrittoRicevuta'
+  /v1/servizi-prescrittore/dem-annulla-prescritto:
+    post:
+      tags:
+        - Ricette dematerializzate
+      operationId: demAnnullaPrescritto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnullaPrescrittoRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AnnullaPrescrittoRicevuta'
+  /v1/servizi-prescrittore/dpcm-invio-prescritto:
+    post:
+      tags:
+        - Ricette rosse
+      operationId: dpcmInvioPrescritto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvioPrescrittoRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /v1/servizi-prescrittore/dpcm-visualizza-prescritto:
+    post:
+      tags:
+        - Ricette rosse
+      operationId: dpcmVisualizzaPrescritto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VisualizzaPrescrittoRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+  /v1/servizi-prescrittore/dpcm-annulla-prescritto:
+    post:
+      tags:
+        - Ricette rosse
+      operationId: dpcmAnnullaPrescritto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnullaPrescrittoRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    ComunicazioneType:
+      type: object
+      properties:
+        codice:
+          type: string
+        messaggio:
+          type: string
+      required:
+        - codice
+        - messaggio
+    ElencoComunicazioniType:
+      type: object
+      properties:
+        comunicazione:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComunicazioneType'
+          xml:
+            name: Comunicazione
+      required:
+        - comunicazione
+    ElencoErroriRicetteType:
+      type: object
+      properties:
+        erroreRicetta:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErroreRicettaType'
+          xml:
+            name: ErroreRicetta
+      required:
+        - erroreRicetta
+    ErroreRicettaType:
+      type: object
+      properties:
+        codEsito:
+          type: string
+        esito:
+          type: string
+        progPresc:
+          type: string
+        tipoErrore:
+          type: string
+      required:
+        - codEsito
+    DichiarazioneSostituzioneMedicoRichiesta:
+      type: object
+      properties:
+        pinCode:
+          type: string
+        pwd:
+          type: string
+        cfMedicoTitolare:
+          type: string
+        codRegione:
+          type: string
+        codASLAo:
+          type: string
+        codStruttura:
+          type: string
+        codSpecializzazione:
+          type: string
+        cfMedicoSostituto:
+          type: string
+        comunicazioneAsl:
+          type: string
+        dataInizioSostituzione:
+          type: string
+        dataFineSostituzione:
+          type: string
+        nota:
+          type: string
+        opzioni:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpzioniType'
+      required:
+        - cfMedicoSostituto
+        - cfMedicoTitolare
+        - codASLAo
+        - codRegione
+        - codSpecializzazione
+        - dataFineSostituzione
+        - dataInizioSostituzione
+        - pinCode
+        - pwd
+      xml:
+        name: DichiarazioneSostituzioneMedicoRichiesta
+        namespace: >-
+          http://dichiarazionesostituzionemedicorichiesta.xsd.dem.sanita.finanze.it
+    OpzioniType:
+      type: object
+      properties:
+        chiave:
+          type: string
+        valore:
+          type: string
+      required:
+        - chiave
+        - valore
+    DichiarazioneSostituzioneMedicoRicevuta:
+      type: object
+      properties:
+        codEsitoInserimento:
+          type: string
+        dataInserimento:
+          type: string
+        elencoErrori:
+          $ref: '#/components/schemas/ElencoErroriType'
+          xml:
+            name: ElencoErrori
+        elencoComunicazioni:
+          $ref: '#/components/schemas/ElencoComunicazioniType'
+          xml:
+            name: ElencoComunicazioni
+      required:
+        - codEsitoInserimento
+      xml:
+        name: DichiarazioneSostituzioneMedicoRicevuta
+        namespace: >-
+          http://dichiarazionesostituzionemedicoricevuta.xsd.dem.sanita.finanze.it
+    ElencoErroriType:
+      type: object
+      properties:
+        errore:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErroreType'
+          xml:
+            name: Errore
+      required:
+        - errore
+    ErroreType:
+      type: object
+      properties:
+        codEsito:
+          type: string
+        esito:
+          type: string
+        tipoErrore:
+          type: string
+      required:
+        - codEsito
+    LottoRichiestaNRE:
+      type: object
+      properties:
+        codRegione:
+          type: string
+          xml:
+            name: CodRegione
+        identificativoLotto:
+          type: string
+          xml:
+            name: IdentificativoLotto
+        cfmedico:
+          type: string
+      required:
+        - codRegione
+        - identificativoLotto
+      xml:
+        name: LottoRichiestaNRE
+        namespace: http://lottorichiesta.xsd.nre.mirsac.sanita.finanze.it
+    LottoRicevutaNRE:
+      type: object
+      properties:
+        codRegione:
+          type: string
+          xml:
+            name: CodRegione
+        codRagLotto:
+          type: string
+          xml:
+            name: CodRagLotto
+        identificativoLotto:
+          type: string
+          xml:
+            name: IdentificativoLotto
+        codLotto:
+          type: string
+          xml:
+            name: CodLotto
+        codEsito:
+          type: string
+          xml:
+            name: CodEsito
+        esito:
+          type: string
+          xml:
+            name: Esito
+        cfmedico:
+          type: string
+      xml:
+        name: LottoRicevutaNRE
+        namespace: http://lottoricevuta.xsd.nre.mirsac.sanita.finanze.it
+    VisualizzaPrescrittoRichiesta:
+      type: object
+      properties:
+        pinCode:
+          type: string
+        nre:
+          type: string
+        cfMedico:
+          type: string
+      required:
+        - cfMedico
+        - nre
+        - pinCode
+      xml:
+        name: VisualizzaPrescrittoRichiesta
+        namespace: http://visualizzaprescrittorichiesta.xsd.dem.sanita.finanze.it
+    DettaglioPrescrizioneType:
+      type: object
+      properties:
+        codProdPrest:
+          type: string
+        descrProdPrest:
+          type: string
+        codGruppoEquival:
+          type: string
+        descrGruppoEquival:
+          type: string
+        testoLibero:
+          type: string
+        descrTestoLiberoNote:
+          type: string
+        nonSost:
+          type: string
+        motivazNote:
+          type: string
+        codMotivazione:
+          type: string
+        notaProd:
+          type: string
+        quantita:
+          type: string
+        prescrizione1:
+          type: string
+        prescrizione2:
+          type: string
+        codCatalogoPrescr:
+          type: string
+        tipoAccesso:
+          type: string
+        numeroNota:
+          type: string
+        condErogabilita:
+          type: string
+        approprPrescrittiva:
+          type: string
+        patologia:
+          type: string
+        numsedute:
+          type: string
+      required:
+        - quantita
+    ElencoDettagliPrescrizioniType:
+      type: object
+      properties:
+        dettaglioPrescrizione:
+          type: array
+          items:
+            $ref: '#/components/schemas/DettaglioPrescrizioneType'
+          xml:
+            name: DettaglioPrescrizione
+      required:
+        - dettaglioPrescrizione
+    InvioPrescrittoRichiesta:
+      type: object
+      properties:
+        pinCode:
+          type: string
+        cfMedico1:
+          type: string
+        cfMedico2:
+          type: string
+        codRegione:
+          type: string
+        codASLAo:
+          type: string
+        codStruttura:
+          type: string
+        codSpecializzazione:
+          type: string
+        testata1:
+          type: string
+        testata2:
+          type: string
+        nre:
+          type: string
+        tipoRic:
+          type: string
+        codiceAss:
+          type: string
+        cognNome:
+          type: string
+        indirizzo:
+          type: string
+        oscuramDati:
+          type: string
+        numTessSasn:
+          type: string
+        socNavigaz:
+          type: string
+        tipoPrescrizione:
+          type: string
+        ricettaInterna:
+          type: string
+        codEsenzione:
+          type: string
+        nonEsente:
+          type: string
+        reddito:
+          type: string
+        codDiagnosi:
+          type: string
+        descrizioneDiagnosi:
+          type: string
+        dataCompilazione:
+          type: string
+        tipoVisita:
+          type: string
+        dispReg:
+          type: string
+        provAssistito:
+          type: string
+        aslAssistito:
+          type: string
+        indicazionePrescr:
+          type: string
+        altro:
+          type: string
+        classePriorita:
+          type: string
+        statoEstero:
+          type: string
+        istituzCompetente:
+          type: string
+        numIdentPers:
+          type: string
+        numIdentTess:
+          type: string
+        dataNascitaEstero:
+          type: string
+        dataScadTessera:
+          type: string
+        elencoDettagliPrescrizioni:
+          $ref: '#/components/schemas/ElencoDettagliPrescrizioniType'
+          xml:
+            name: ElencoDettagliPrescrizioni
+      required:
+        - cfMedico1
+        - codASLAo
+        - codRegione
+        - codSpecializzazione
+        - dataCompilazione
+        - elencoDettagliPrescrizioni
+        - pinCode
+        - tipoPrescrizione
+        - tipoVisita
+      xml:
+        name: InvioPrescrittoRichiesta
+        namespace: http://invioprescrittorichiesta.xsd.dem.sanita.finanze.it
+    AnnullaPrescrittoRichiesta:
+      type: object
+      properties:
+        pinCode:
+          type: string
+        nre:
+          type: string
+        cfMedico:
+          type: string
+      required:
+        - cfMedico
+        - nre
+        - pinCode
+      xml:
+        name: AnnullaPrescrittoRichiesta
+        namespace: http://annullaprescrittorichiesta.xsd.dem.sanita.finanze.it
+    ElencoNotaType:
+      type: object
+      properties:
+        nota:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotaType'
+          xml:
+            name: Nota
+      required:
+        - nota
+    NotaType:
+      type: object
+      properties:
+        progrPresc:
+          type: string
+        codProdPrest:
+          type: string
+        tipoAmbulatorio:
+          type: string
+    VisualizzaPrescrittoRicevuta:
+      type: object
+      properties:
+        nre:
+          type: string
+        cfMedico1:
+          type: string
+        cfMedico2:
+          type: string
+        codRegione:
+          type: string
+        codASLAo:
+          type: string
+        codStruttura:
+          type: string
+        codSpecializzazione:
+          type: string
+        testata1:
+          type: string
+        testata2:
+          type: string
+        tipoRic:
+          type: string
+        codiceAss:
+          type: string
+        cognNome:
+          type: string
+        indirizzo:
+          type: string
+        oscuramDati:
+          type: string
+        numTessSasn:
+          type: string
+        socNavigaz:
+          type: string
+        tipoPrescrizione:
+          type: string
+        ricettaInterna:
+          type: string
+        codEsenzione:
+          type: string
+        nonEsente:
+          type: string
+        reddito:
+          type: string
+        codDiagnosi:
+          type: string
+        descrizioneDiagnosi:
+          type: string
+        dataCompilazione:
+          type: string
+        tipoVisita:
+          type: string
+        dispReg:
+          type: string
+        provAssistito:
+          type: string
+        aslAssistito:
+          type: string
+        indicazionePrescr:
+          type: string
+        altro:
+          type: string
+        classePriorita:
+          type: string
+        statoEstero:
+          type: string
+        istituzCompetente:
+          type: string
+        numIdentPers:
+          type: string
+        numIdentTess:
+          type: string
+        dataNascitaEstero:
+          type: string
+        dataScadTessera:
+          type: string
+        elencoDettagliPrescrizioni:
+          $ref: '#/components/schemas/ElencoDettagliPrescrizioniType'
+          xml:
+            name: ElencoDettagliPrescrizioni
+        statoProcesso:
+          type: string
+        codAutenticazione:
+          type: string
+        dataInserimento:
+          type: string
+        codEsitoVisualizzazione:
+          type: string
+        elencoErroriRicette:
+          $ref: '#/components/schemas/ElencoErroriRicetteType'
+          xml:
+            name: ElencoErroriRicette
+        elencoComunicazioni:
+          $ref: '#/components/schemas/ElencoComunicazioniType'
+          xml:
+            name: ElencoComunicazioni
+        elencoNota:
+          $ref: '#/components/schemas/ElencoNotaType'
+          xml:
+            name: ElencoNota
+      required:
+        - codEsitoVisualizzazione
+      xml:
+        name: VisualizzaPrescrittoRicevuta
+        namespace: http://visualizzaprescrittoricevuta.xsd.dem.sanita.finanze.it
+    InterrogaNreUtilRichiesta:
+      type: object
+      properties:
+        pinCode:
+          type: string
+        codRegione:
+          type: string
+        nre:
+          type: string
+        codLotto:
+          type: string
+        cfMedico:
+          type: string
+        cfAssistito:
+          type: string
+        tipoPrescr:
+          type: string
+        dataCompilazioneRicettaDal:
+          type: string
+        dataCompilazioneRicettaAl:
+          type: string
+      required:
+        - cfMedico
+        - codRegione
+        - pinCode
+      xml:
+        name: InterrogaNreUtilRichiesta
+        namespace: http://interroganreutilrichiesta.xsd.dem.sanita.finanze.it
+    ElencoNreUtilRecordType:
+      type: object
+      properties:
+        nreUtilRecord:
+          type: array
+          items:
+            $ref: '#/components/schemas/NreUtilRecordType'
+          xml:
+            name: NreUtilRecord
+    InterrogaNreUtilRicevuta:
+      type: object
+      properties:
+        codEsitoInterrogaNreUtilizzati:
+          type: string
+        elencoNreUtilRecord:
+          $ref: '#/components/schemas/ElencoNreUtilRecordType'
+          xml:
+            name: ElencoNreUtilRecord
+        elencoErroriRicette:
+          $ref: '#/components/schemas/ElencoErroriRicetteType'
+          xml:
+            name: ElencoErroriRicette
+        elencoComunicazioni:
+          $ref: '#/components/schemas/ElencoComunicazioniType'
+          xml:
+            name: ElencoComunicazioni
+      required:
+        - codEsitoInterrogaNreUtilizzati
+      xml:
+        name: InterrogaNreUtilRicevuta
+        namespace: http://interroganreutilricevuta.xsd.dem.sanita.finanze.it
+    NreUtilRecordType:
+      type: object
+      properties:
+        nre:
+          type: string
+        cfMedico:
+          type: string
+        tipoPrescrizione:
+          type: string
+        dataCompilazioneRicetta:
+          type: string
+        cfAssistito:
+          type: string
+        provenienza:
+          type: string
+        lotto:
+          type: string
+        codAutenticazione:
+          type: string
+    InvioPrescrittoRicevuta:
+      type: object
+      properties:
+        nre:
+          type: string
+        codAutenticazione:
+          type: string
+        dataInserimento:
+          type: string
+        codEsitoInserimento:
+          type: string
+        elencoErroriRicette:
+          $ref: '#/components/schemas/ElencoErroriRicetteType'
+          xml:
+            name: ElencoErroriRicette
+        elencoComunicazioni:
+          $ref: '#/components/schemas/ElencoComunicazioniType'
+          xml:
+            name: ElencoComunicazioni
+        elencoNota:
+          $ref: '#/components/schemas/ElencoNotaType'
+          xml:
+            name: ElencoNota
+        flagPromemoria:
+          type: string
+        pdfPromemoria:
+          type: string
+          format: byte
+      required:
+        - codEsitoInserimento
+      xml:
+        name: InvioPrescrittoRicevuta
+        namespace: http://invioprescrittoricevuta.xsd.dem.sanita.finanze.it
+    AnnullaPrescrittoRicevuta:
+      type: object
+      properties:
+        nre:
+          type: string
+        codEsitoAnnullamento:
+          type: string
+        elencoErroriRicette:
+          $ref: '#/components/schemas/ElencoErroriRicetteType'
+          xml:
+            name: ElencoErroriRicette
+        elencoComunicazioni:
+          $ref: '#/components/schemas/ElencoComunicazioniType'
+          xml:
+            name: ElencoComunicazioni
+      required:
+        - codEsitoAnnullamento
+        - nre
+      xml:
+        name: AnnullaPrescrittoRicevuta
+        namespace: http://annullaprescrittoricevuta.xsd.dem.sanita.finanze.it
