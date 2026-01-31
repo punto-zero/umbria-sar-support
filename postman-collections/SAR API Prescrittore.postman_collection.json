@@ -57,7 +57,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"CodRegione\": {{codRegione}},\n  \"IdentificativoLotto\": 0,\n  \"CFMedico\": {{cfMedico}}\n}",
+              "raw": "{\n    \"CodRegione\": {{codRegione}},\n    \"IdentificativoLotto\": 0,\n    \"CFMedico\": {{cfMedico}}\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -99,7 +99,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"pinCode\": \"\",\n  \"codRegione\": {{codRegione}},\n  \"cfMedico\": \"{{cfMedico}}\",\n  \"tipoPrescr\": \"P\",\n  \"dataCompilazioneRicettaDal\": \"2025-07-01 00:00:00\",\n  \"dataCompilazioneRicettaAl\": \"2025-07-31 23:59:59\"\n}",
+              "raw": "{\n    \"pinCode\": \"\",\n    \"codRegione\": {{codRegione}},\n    \"cfMedico\": \"{{cfMedico}}\",\n    \"tipoPrescr\": \"P\",\n    \"dataCompilazioneRicettaDal\": \"2025-07-01 00:00:00\",\n    \"dataCompilazioneRicettaAl\": \"2025-07-31 23:59:59\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -496,10 +496,10 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"pinCode\": \"\",\n  \"codRegione\": {{codRegione}},\n  \"cfMedico\": \"{{cfMedico}}\",\n  \"tipoPrescr\": \"P\",\n  \"dataCompilazioneRicettaDal\": \"2025-07-01 00:00:00\",\n  \"dataCompilazioneRicettaAl\": \"2025-07-31 23:59:59\"\n}",
+              "raw": "<InterrogaNreUtilRichiesta xmlns=\"http://interroganreutilrichiesta.xsd.dem.sanita.finanze.it\">\n    <pinCode />\n    <codRegione>{{codRegione}}</codRegione>\n    <nre/>\n    <codLotto/>\n    <cfMedico>{{cfMedico}}</cfMedico>\n    <cfAssistito/>\n    <tipoPrescr>P</tipoPrescr>\n    <dataCompilazioneRicettaDal>2025-07-01 00:00:00</dataCompilazioneRicettaDal>\n    <dataCompilazioneRicettaAl>2025-07-31 23:59:59</dataCompilazioneRicettaAl>\n</InterrogaNreUtilRichiesta>",
               "options": {
                 "raw": {
-                  "language": "json"
+                  "language": "xml"
                 }
               }
             },
@@ -538,7 +538,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "<DichiarazioneSostituzioneMedicoRichiesta xmlns=\"http://dichiarazionesostituzionemedicorichiesta.xsd.dem.sanita.finanze.it\">\n\t<pinCode />\n\t<cfMedicoTitolare>{{cfMedico}}</cfMedicoTitolare>\n\t<codRegione>{{codRegione}}</codRegione>\n\t<codASLAo>{{codASLAo}}</codASLAo>\n    <codStruttura>{{codStruttura}}</codStruttura>\n\t<codSpecializzazione>{{codSpecializzazione}}</codSpecializzazione>\n\t<cfMedicoSostituto>{{cfMedicoSostituto}}</cfMedicoSostituto>\n\t<dataInizioSostituzione>20260301</dataInizioSostituzione>\n\t<dataFineSostituzione>20260331</dataFineSostituzione>\n</DichiarazioneSostituzioneMedicoRichiesta>\n",
+              "raw": "<DichiarazioneSostituzioneMedicoRichiesta xmlns=\"http://dichiarazionesostituzionemedicorichiesta.xsd.dem.sanita.finanze.it\">\n    <pinCode />\n    <cfMedicoTitolare>{{cfMedico}}</cfMedicoTitolare>\n    <codRegione>{{codRegione}}</codRegione>\n    <codASLAo>{{codASLAo}}</codASLAo>\n    <codStruttura>{{codStruttura}}</codStruttura>\n    <codSpecializzazione>{{codSpecializzazione}}</codSpecializzazione>\n    <cfMedicoSostituto>{{cfMedicoSostituto}}</cfMedicoSostituto>\n    <dataInizioSostituzione>20260301</dataInizioSostituzione>\n    <dataFineSostituzione>20260331</dataFineSostituzione>\n</DichiarazioneSostituzioneMedicoRichiesta>",
               "options": {
                 "raw": {
                   "language": "xml"
