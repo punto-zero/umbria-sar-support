@@ -1,0 +1,937 @@
+{
+  "info": {
+    "_postman_id": "d28218b3-cd6f-4b6f-963c-ece4ce8b7b76",
+    "name": "SAR API Prescrittore",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "4360394"
+  },
+  "item": [
+    {
+      "name": "JSON",
+      "item": [
+        {
+          "name": "richiesta-lotto-nre",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let response = pm.response.json();\r",
+                  "if (response.codEsito==\"0000\") {\r",
+                  "    let codRegione = response.codRegione;\r",
+                  "    let codRagLotto = response.codRagLotto;\r",
+                  "    let identificativoLotto = response.identificativoLotto;\r",
+                  "    let codLotto = response.codLotto;\r",
+                  "    let lottoNre = codRegione + codRagLotto + identificativoLotto + codLotto;\r",
+                  "    pm.collectionVariables.set('lottoNre', lottoNre);\r",
+                  "    pm.collectionVariables.set('contatoreLottoNre', 0);\r",
+                  "    if (lottoNre.length==12) {\r",
+                  "        pm.collectionVariables.set('dimensioneLottoNre', 1000);\r",
+                  "    } else if (lottoNre.length==13) {\r",
+                  "        pm.collectionVariables.set('dimensioneLottoNre', 100);\r",
+                  "    }\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"CodRegione\": {{codRegione}},\n  \"IdentificativoLotto\": 0,\n  \"CFMedico\": {{cfMedico}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/richiesta-lotto-nre",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "richiesta-lotto-nre"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-nre-utilizzati",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codRegione\": {{codRegione}},\n  \"cfMedico\": \"{{cfMedico}}\",\n  \"tipoPrescr\": \"P\",\n  \"dataCompilazioneRicettaDal\": \"2025-07-01 00:00:00\",\n  \"dataCompilazioneRicettaAl\": \"2025-07-31 23:59:59\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/dem-nre-utilizzati",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "dem-nre-utilizzati"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "sostituzione-medico",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"pinCode\": \"\",\n    \"cfMedicoTitolare\": \"{{cfMedico}}\",\n    \"codRegione\": \"{{codRegione}}\",\n    \"codASLAo\": \"{{codASLAo}}\",\n    \"codStruttura\": \"{{codStruttura}}\",\n    \"codSpecializzazione\": \"{{codSpecializzazione}}\",\n    \"cfMedicoSostituto\": \"{{cfMedicoSostituto}}\",\n    \"dataInizioSostituzione\": \"20260301\",\n    \"dataFineSostituzione\": \"20260331\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/sostituzione-medico",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "sostituzione-medico"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-invio-prescritto farmaceutica",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "let lottoNre = pm.collectionVariables.get('lottoNre');\r",
+                  "if (lottoNre == undefined || lottoNre == null || lottoNre == \"\") {\r",
+                  "    console.error(\"Lotto NRE non disponibile, richiedere un nuovo lotto!\");\r",
+                  "    throw new Error(\"Lotto NRE non disponibile, richiedere un nuovo lotto!\");\r",
+                  "}\r",
+                  "let dimensioneLottoNre =  pm.collectionVariables.get(\"dimensioneLottoNre\");\r",
+                  "let maxNre = dimensioneLottoNre - 1;\r",
+                  "let contatoreLottoNre = pm.collectionVariables.get(\"contatoreLottoNre\");\r",
+                  "if (contatoreLottoNre > maxNre) {\r",
+                  "    console.error(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "    throw new Error(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "}\r",
+                  "let nre = lottoNre + String(contatoreLottoNre).padStart(String(maxNre).length, '0');\r",
+                  "pm.collectionVariables.set('nre', nre);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let response = pm.response.json();\r",
+                  "if (response.codEsitoInserimento==\"0000\" || response.codEsitoInserimento==\"0001\") {\r",
+                  "    let nre = response.nre;\r",
+                  "    pm.collectionVariables.set('nre', nre);\r",
+                  "\r",
+                  "    let contatoreLottoNre = pm.collectionVariables.get(\"contatoreLottoNre\");\r",
+                  "    contatoreLottoNre++;\r",
+                  "    pm.collectionVariables.set('contatoreLottoNre', contatoreLottoNre);\r",
+                  "    if (contatoreLottoNre > maxNre) {\r",
+                  "        console.warn(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "    }\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"pinCode\": \"\",\n    \"cfMedico1\": \"{{cfMedico}}\",\n    \"codRegione\": \"100\",\n    \"codASLAo\": \"202\",\n    \"codStruttura\": null,\n    \"codSpecializzazione\": \"F\",\n    \"testata1\": null,\n    \"testata2\": null,\n    \"nre\": \"{{nre}}\",\n    \"codiceAss\": \"{{cfAssistito}}\",\n    \"cognNome\": \"{{cognNome}}\",\n    \"indirizzo\": \"{{indirizzo}}\",\n    \"tipoPrescrizione\": \"F\",\n    \"nonEsente\": 1,\n    \"descrizioneDiagnosi\": null,\n    \"dataCompilazione\": \"{{dataCorrente}}\",\n    \"tipoVisita\": \"A\",\n    \"provAssistito\": null,\n    \"aslAssistito\": null,\n    \"classePriorita\": null,\n    \"elencoDettagliPrescrizioni\": {\n        \"dettaglioPrescrizione\": [\n            {\n                \"codProdPrest\": \"026089019\",\n                \"descrProdPrest\": \"AUGMENTIN 12CPR RIV875MG+125MG\",\n                \"codGruppoEquival\": \"CJA\",\n                \"descrGruppoEquival\": \"AMOXICILLINA+ACIDO CLAVULANICO 875+125MG 12 UNITA' USO ORALE\",\n                \"nonSost\": null,\n                \"motivazNote\": null,\n                \"codMotivazione\": null,\n                \"notaProd\": null,\n                \"quantita\": 2,\n                \"prescrizione1\": null,\n                \"prescrizione2\": null\n            }\n    ]}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/dem-invio-prescritto",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "dem-invio-prescritto"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-invio-prescritto specialistica",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "let lottoNre = pm.collectionVariables.get('lottoNre');\r",
+                  "if (lottoNre == undefined || lottoNre == null || lottoNre == \"\") {\r",
+                  "    console.error(\"Lotto NRE non disponibile, richiedere un nuovo lotto!\");\r",
+                  "    throw new Error(\"Lotto NRE non disponibile, richiedere un nuovo lotto!\");\r",
+                  "}\r",
+                  "let dimensioneLottoNre =  pm.collectionVariables.get(\"dimensioneLottoNre\");\r",
+                  "let maxNre = dimensioneLottoNre - 1;\r",
+                  "let contatoreLottoNre = pm.collectionVariables.get(\"contatoreLottoNre\");\r",
+                  "if (contatoreLottoNre > maxNre) {\r",
+                  "    console.error(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "    throw new Error(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "}\r",
+                  "let nre = lottoNre + String(contatoreLottoNre).padStart(String(maxNre).length, '0');\r",
+                  "pm.collectionVariables.set('nre', nre);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let response = pm.response.json();\r",
+                  "if (response.codEsitoInserimento==\"0000\" || response.codEsitoInserimento==\"0001\") {\r",
+                  "    let nre = response.nre;\r",
+                  "    pm.collectionVariables.set('nre', nre);\r",
+                  "\r",
+                  "    let contatoreLottoNre = pm.collectionVariables.get(\"contatoreLottoNre\");\r",
+                  "    contatoreLottoNre++;\r",
+                  "    pm.collectionVariables.set('contatoreLottoNre', contatoreLottoNre);\r",
+                  "    if (contatoreLottoNre > maxNre) {\r",
+                  "        console.warn(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "    }\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"pinCode\": \"\",\n    \"cfMedico1\": \"{{cfMedico}}\",\n    \"codRegione\": \"100\",\n    \"codASLAo\": \"202\",\n    \"codStruttura\": null,\n    \"codSpecializzazione\": \"F\",\n    \"testata1\": null,\n    \"testata2\": null,\n    \"nre\": \"{{nre}}\",\n    \"codiceAss\": \"{{cfAssistito}}\",\n    \"cognNome\": \"{{cognNome}}\",\n    \"indirizzo\": \"{{indirizzo}}\",\n    \"tipoPrescrizione\": \"P\",\n    \"nonEsente\": 1,\n    \"descrizioneDiagnosi\": \"Prova\",\n    \"dataCompilazione\": \"{{dataCorrente}}\",\n    \"tipoVisita\": \"A\",\n    \"provAssistito\": null,\n    \"aslAssistito\": null,\n    \"classePriorita\": \"P\",\n    \"elencoDettagliPrescrizioni\": {\n        \"dettaglioPrescrizione\": [\n            {\n                \"codProdPrest\": \"88.77.5\",\n                \"descrProdPrest\": \"ECOCOLORDOPPLER DEGLI ARTI INFERIORI ARTERIOSO. A riposo e dopo prova fisica o farmacologica\",\n                \"quantita\": 1,\n                \"codCatalogoPrescr\": 86274,\n                \"tipoAccesso\": 1,\n                \"numsedute\": null\n            }\n    ]}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/dem-invio-prescritto",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "dem-invio-prescritto"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-annulla-prescritto",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"nre\": \"{{nre}}\",\n  \"cfMedico\": \"{{cfMedico}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/dem-annulla-prescritto",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "dem-annulla-prescritto"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-visualizza-prescritto",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"nre\": \"{{nre}}\",\n  \"cfMedico\": \"{{cfMedico}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/dem-visualizza-prescritto",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "dem-visualizza-prescritto"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "XML",
+      "item": [
+        {
+          "name": "richiesta-lotto-nre",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "<LottoRichiestaNRE xmlns=\"http://lottorichiesta.xsd.nre.mirsac.sanita.finanze.it\">\n    <CodRegione>{{codRegione}}</CodRegione>\n    <IdentificativoLotto>0</IdentificativoLotto>\n    <CFMedico>{{cfMedico}}</CFMedico>\n</LottoRichiestaNRE>",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/richiesta-lotto-nre",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "richiesta-lotto-nre"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-nre-utilizzati",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codRegione\": {{codRegione}},\n  \"cfMedico\": \"{{cfMedico}}\",\n  \"tipoPrescr\": \"P\",\n  \"dataCompilazioneRicettaDal\": \"2025-07-01 00:00:00\",\n  \"dataCompilazioneRicettaAl\": \"2025-07-31 23:59:59\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/dem-nre-utilizzati",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "dem-nre-utilizzati"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "sostituzione-medico",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "<DichiarazioneSostituzioneMedicoRichiesta xmlns=\"http://dichiarazionesostituzionemedicorichiesta.xsd.dem.sanita.finanze.it\">\n\t<pinCode />\n\t<cfMedicoTitolare>{{cfMedico}}</cfMedicoTitolare>\n\t<codRegione>{{codRegione}}</codRegione>\n\t<codASLAo>{{codASLAo}}</codASLAo>\n    <codStruttura>{{codStruttura}}</codStruttura>\n\t<codSpecializzazione>{{codSpecializzazione}}</codSpecializzazione>\n\t<cfMedicoSostituto>{{cfMedicoSostituto}}</cfMedicoSostituto>\n\t<dataInizioSostituzione>20260301</dataInizioSostituzione>\n\t<dataFineSostituzione>20260331</dataFineSostituzione>\n</DichiarazioneSostituzioneMedicoRichiesta>\n",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/sostituzione-medico",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "sostituzione-medico"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-invio-prescritto farmaceutica",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "let lottoNre = pm.collectionVariables.get('lottoNre');\r",
+                  "if (lottoNre == undefined || lottoNre == null || lottoNre == \"\") {\r",
+                  "    console.error(\"Lotto NRE non disponibile, richiedere un nuovo lotto!\");\r",
+                  "    throw new Error(\"Lotto NRE non disponibile, richiedere un nuovo lotto!\");\r",
+                  "}\r",
+                  "let dimensioneLottoNre =  pm.collectionVariables.get(\"dimensioneLottoNre\");\r",
+                  "let maxNre = dimensioneLottoNre - 1;\r",
+                  "let contatoreLottoNre = pm.collectionVariables.get(\"contatoreLottoNre\");\r",
+                  "if (contatoreLottoNre > maxNre) {\r",
+                  "    console.error(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "    throw new Error(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "}\r",
+                  "let nre = lottoNre + String(contatoreLottoNre).padStart(String(maxNre).length, '0');\r",
+                  "pm.collectionVariables.set('nre', nre);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let response = pm.response.json();\r",
+                  "if (response.codEsitoInserimento==\"0000\" || response.codEsitoInserimento==\"0001\") {\r",
+                  "    let nre = response.nre;\r",
+                  "    pm.collectionVariables.set('nre', nre);\r",
+                  "\r",
+                  "    let contatoreLottoNre = pm.collectionVariables.get(\"contatoreLottoNre\");\r",
+                  "    contatoreLottoNre++;\r",
+                  "    pm.collectionVariables.set('contatoreLottoNre', contatoreLottoNre);\r",
+                  "    if (contatoreLottoNre > maxNre) {\r",
+                  "        console.warn(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "    }\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "<InvioPrescrittoRichiesta xmlns=\"http://invioprescrittorichiesta.xsd.dem.sanita.finanze.it\" xmlns:tip=\"http://tipodati.xsd.dem.sanita.finanze.it\">\n    <pinCode/>\n    <cfMedico1>{{cfMedico}}</cfMedico1>\n    <codRegione>{{codRegione}}</codRegione>\n    <codASLAo>{{codASLAo}}</codASLAo>\n    <codStruttura>{{codStruttura}}</codStruttura>\n    <codSpecializzazione>{{codSpecializzazione}}</codSpecializzazione>\n    <testata1/>\n    <nre>{{nre}}</nre>\n    <tipoRic/>\n    <codiceAss>{{cfAssistito}}</codiceAss>\n    <cognNome>{{cognNome}}</cognNome>\n    <indirizzo>{{indirizzo}}</indirizzo>\n    <tipoPrescrizione>F</tipoPrescrizione>\n    <nonEsente>1</nonEsente>\n    <codDiagnosi/>\n    <dataCompilazione>{{dataCorrente}}</dataCompilazione>\n    <tipoVisita>A</tipoVisita>\n    <dispReg/>\n    <provAssistito/>\n    <aslAssistito/>\n    <altro/>\n    <classePriorita/>\n    <statoEstero/>\n    <istituzCompetente/>\n    <numIdentPers/>\n    <numIdentTess/>\n    <ElencoDettagliPrescrizioni>\n        <tip:DettaglioPrescrizione>\n            <tip:codProdPrest>026089019</tip:codProdPrest>\n            <tip:descrProdPrest>AUGMENTIN 12CPR RIV875MG+125MG</tip:descrProdPrest>\n            <tip:codGruppoEquival>CJA</tip:codGruppoEquival>\n            <tip:descrGruppoEquival>AMOXICILLINA+ACIDO CLAVULANICO 875+125MG 12 UNITA' USO ORALE</tip:descrGruppoEquival>\n            <tip:nonSost/>\n            <tip:motivazNote/>\n            <tip:codMotivazione/>\n            <tip:notaProd/>\n            <tip:quantita>1</tip:quantita>\n            <tip:prescrizione1/>\n            <tip:prescrizione2/>\n        </tip:DettaglioPrescrizione>\n    </ElencoDettagliPrescrizioni>\n</InvioPrescrittoRichiesta>\n",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/dem-invio-prescritto",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "dem-invio-prescritto"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-invio-prescritto specialistica",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "let lottoNre = pm.collectionVariables.get('lottoNre');\r",
+                  "if (lottoNre == undefined || lottoNre == null || lottoNre == \"\") {\r",
+                  "    console.error(\"Lotto NRE non disponibile, richiedere un nuovo lotto!\");\r",
+                  "    throw new Error(\"Lotto NRE non disponibile, richiedere un nuovo lotto!\");\r",
+                  "}\r",
+                  "let dimensioneLottoNre =  pm.collectionVariables.get(\"dimensioneLottoNre\");\r",
+                  "let maxNre = dimensioneLottoNre - 1;\r",
+                  "let contatoreLottoNre = pm.collectionVariables.get(\"contatoreLottoNre\");\r",
+                  "if (contatoreLottoNre > maxNre) {\r",
+                  "    console.error(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "    throw new Error(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "}\r",
+                  "let nre = lottoNre + String(contatoreLottoNre).padStart(String(maxNre).length, '0');\r",
+                  "pm.collectionVariables.set('nre', nre);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "let response = pm.response.json();\r",
+                  "if (response.codEsitoInserimento==\"0000\" || response.codEsitoInserimento==\"0001\") {\r",
+                  "    let nre = response.nre;\r",
+                  "    pm.collectionVariables.set('nre', nre);\r",
+                  "\r",
+                  "    let contatoreLottoNre = pm.collectionVariables.get(\"contatoreLottoNre\");\r",
+                  "    contatoreLottoNre++;\r",
+                  "    pm.collectionVariables.set('contatoreLottoNre', contatoreLottoNre);\r",
+                  "    if (contatoreLottoNre > maxNre) {\r",
+                  "        console.warn(\"Lotto NRE terminato, richiedere un nuovo lotto!\");\r",
+                  "    }\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "<InvioPrescrittoRichiesta xmlns=\"http://invioprescrittorichiesta.xsd.dem.sanita.finanze.it\" xmlns:tip=\"http://tipodati.xsd.dem.sanita.finanze.it\">\n    <pinCode/>\n    <cfMedico1>{{cfMedico}}</cfMedico1>\n    <codRegione>{{codRegione}}</codRegione>\n    <codASLAo>{{codASLAo}}</codASLAo>\n    <codStruttura>{{codStruttura}}</codStruttura>\n    <codSpecializzazione>{{codSpecializzazione}}</codSpecializzazione>\n    <testata1/>\n    <nre>{{nre}}</nre>\n    <tipoRic/>\n    <codiceAss>{{cfAssistito}}</codiceAss>\n    <cognNome>{{cognNome}}</cognNome>\n    <indirizzo>{{indirizzo}}</indirizzo>\n    <tipoPrescrizione>P</tipoPrescrizione>\n    <nonEsente>1</nonEsente>\n    <codDiagnosi/>\n\t<descrizioneDiagnosi>Testo quesito diagnostico</descrizioneDiagnosi>\n    <dataCompilazione>{{dataCorrente}}</dataCompilazione>\n    <tipoVisita>A</tipoVisita>\n    <dispReg/>\n    <provAssistito/>\n    <aslAssistito/>\n    <altro/>\n    <classePriorita>P</classePriorita>\n    <statoEstero/>\n    <istituzCompetente/>\n    <numIdentPers/>\n    <numIdentTess/>\n    <ElencoDettagliPrescrizioni>\n        <tip:DettaglioPrescrizione>\n            <tip:codProdPrest>88.77.5</tip:codProdPrest>\n            <tip:descrProdPrest>ECOCOLORDOPPLER DEGLI ARTI INFERIORI ARTERIOSO. A riposo e dopo prova fisica o farmacologica</tip:descrProdPrest>\n            <tip:descrTestoLiberoNote/>\n            <tip:quantita>1</tip:quantita>\n            <tip:prescrizione1/>\n            <tip:prescrizione2/>\n            <tip:codCatalogoPrescr>86274</tip:codCatalogoPrescr>\n            <tip:tipoAccesso>1</tip:tipoAccesso>\n            <tip:numeroNota/>\n            <tip:condErogabilita/>\n            <tip:approprPrescrittiva/>\n            <tip:patologia/>\n        </tip:DettaglioPrescrizione>\n    </ElencoDettagliPrescrizioni>\n</InvioPrescrittoRichiesta>\n",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/dem-invio-prescritto",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "dem-invio-prescritto"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-annulla-prescritto",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "<AnnullaPrescrittoRichiesta xmlns=\"http://annullaprescrittorichiesta.xsd.dem.sanita.finanze.it\">\n    <pinCode/>\n    <nre>{{nre}}</nre>\n    <cfMedico>{{cfMedico}}</cfMedico>\n</AnnullaPrescrittoRichiesta>\n",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/dem-annulla-prescritto",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "dem-annulla-prescritto"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-visualizza-prescritto",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "<VisualizzaPrescrittoRichiesta xmlns=\"http://visualizzaprescrittorichiesta.xsd.dem.sanita.finanze.it\">\n    <pinCode/>\n    <nre>{{nre}}</nre>\n    <cfMedico>{{cfMedico}}</cfMedico>\n</VisualizzaPrescrittoRichiesta>\n",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-prescrittore/dem-visualizza-prescritto",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-prescrittore",
+                "dem-visualizza-prescritto"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "const pad = (num) => (num < 10 ? '0' + num : num);",
+          "",
+          "let now = new Date();",
+          "",
+          "const year = now.getFullYear();",
+          "const month = pad(now.getMonth() + 1);",
+          "const day = pad(now.getDate());",
+          "const hours = pad(now.getHours());",
+          "const minutes = pad(now.getMinutes());",
+          "const seconds = pad(now.getSeconds());",
+          "",
+          "pm.collectionVariables.set(\"dataCorrente\",`${year}-${month}-${day} ${hours}:${minutes}:${seconds}`)",
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": ""
+    },
+    {
+      "key": "codRegione",
+      "value": ""
+    },
+    {
+      "key": "codASLAo",
+      "value": ""
+    },
+    {
+      "key": "codStruttura",
+      "value": ""
+    },
+    {
+      "key": "codSpecializzazione",
+      "value": ""
+    },
+    {
+      "key": "cfMedico",
+      "value": "CSTRLF55T23A835J"
+    },
+    {
+      "key": "cfMedicoSostituto",
+      "value": ""
+    },
+    {
+      "key": "cfAssistito",
+      "value": "CRSMRM80A01G478X"
+    },
+    {
+      "key": "cognNome",
+      "value": ""
+    },
+    {
+      "key": "indirizzo",
+      "value": ""
+    },
+    {
+      "key": "dataCorrente",
+      "value": ""
+    },
+    {
+      "key": "auth-token",
+      "value": ""
+    },
+    {
+      "key": "signature-token",
+      "value": ""
+    },
+    {
+      "key": "lottoNre",
+      "value": ""
+    },
+    {
+      "key": "dimensioneLottoNre",
+      "value": ""
+    },
+    {
+      "key": "contatoreLottoNre",
+      "value": ""
+    },
+    {
+      "key": "nre",
+      "value": ""
+    }
+  ]
+}
