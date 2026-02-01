@@ -1,1 +1,677 @@
-
+{
+  "info": {
+    "_postman_id": "d955b3ce-1937-4701-a222-2cb6d864be64",
+    "name": "SAR API Erogatore",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "4360394"
+  },
+  "item": [
+    {
+      "name": "JSON",
+      "item": [
+        {
+          "name": "dem-visualizza-erogato presa in carico regione",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"pinCode\": \"\",\n    \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n    \"codiceAslErogatore\": \"000\",\n    \"codiceSsaErogatore\": \"000000\",\n    \"nre\": \"{{nre}}\",\n    \"cfAssistito\": \"{{cfAssistito}}\",\n    \"tipoOperazione\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/dem-visualizza-erogato",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "dem-visualizza-erogato"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-visualizza-erogato annulla presa in carico regione",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"000\",\n  \"codiceSsaErogatore\": \"000000\",\n  \"nre\": \"{{nre}}\",\n  \"cfAssistito\": \"{{cfAssistito}}\",\n  \"tipoOperazione\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/dem-visualizza-erogato",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "dem-visualizza-erogato"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-visualizza-erogato presa in carico struttura",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\",\n  \"nre\": \"{{nre}}\",\n  \"cfAssistito\": \"{{cfAssistito}}\",\n  \"tipoOperazione\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/dem-visualizza-erogato",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "dem-visualizza-erogato"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-visualizza-erogato annulla presa in carico struttura",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\",\n  \"nre\": \"1000A4005044002\",\n  \"cfAssistito\": \"{{cfAssistito}}\",\n  \"tipoOperazione\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/dem-visualizza-erogato",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "dem-visualizza-erogato"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-invio-erogato",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\",\n  \"nre\": \"{{nre}}\",\n  \"cfAssistito\": \"{{cfAssistito}}\",\n  \"tipoOperazione\": 1,\n  \"prescrizioneFruita\": 1,\n  \"quotaFissa\": 0,\n  \"franchigia\": 36.15,\n  \"galDirChiamAltro\": 0,\n  \"dataSpedizione\": \"{{dataCorrente}}\",\n  \"elencoDettagliPrescrInviiErogato\": {\n    \"dettaglioPrescrizioneInvioErogato\": [\n      {\n        \"codProdPrest\": \"88.77.5\",\n        \"codProdPrestErog\": \"88.77.5\",\n        \"descrProdPrestErog\": \"ECOCOLORDOPPLER DEGLI ARTI INFERIORI ARTERIOSO. A RIPOSO E DOPO PROVA FISICA O FARMACOLOGICA\",\n        \"codBranca\": \"02\",\n        \"prezzo\": 48,\n        \"quantitaErogata\": 1,\n        \"dataIniErog\": \"{{dataCorrente}}\",\n        \"dataFineErog\": \"{{dataCorrente}}\",\n        \"prezzoRimborso\": 48,\n        \"codPresidio\": \"030101Y50487Y\",\n        \"codReparto\": 38,\n        \"dispFust1\": \"V=A;\",\n        \"codCatalogoPrescr\": 86274,\n        \"codCatalogoErog\": 86274,\n        \"garanziaTempiMax\": 1,\n        \"dataPrenotazione\": \"{{dataCorrente}}\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/dem-invio-erogato",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "dem-invio-erogato"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-annulla-erogato",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\",\n  \"nre\": \"{{nre}}\",\n  \"cfAssistito\": \"{{cfAssistito}}\",\n  \"codAnnullamento\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/dem-annulla-erogato",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "dem-annulla-erogato"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-report-erogato",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\",\n  \"annoMese\": 202507\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/dem-report-erogato",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "dem-report-erogato"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-sospendi-erogato inizio sospensione",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\",\n  \"nre\": \"{{nre}}\",\n  \"cfAssistito\": \"{{cfAssistito}}\",\n  \"tipoOperazione\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/dem-sospendi-erogato",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "dem-sospendi-erogato"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dem-sospendi-erogato fine sospensione",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\",\n  \"nre\": \"{{nre}}\",\n  \"cfAssistito\": \"{{cfAssistito}}\",\n  \"tipoOperazione\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/dem-sospendi-erogato",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "dem-sospendi-erogato"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "elenco-ricette",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\",\n  \"dataPeriodoDal\": \"2025-07-01 00:00:00\",\n  \"dataPeriodoAl\": \"2025-07-31 23:59:59\",\n  \"tipoData\": \"E\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/elenco-ricette",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "elenco-ricette"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "elenco-storico-nre",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/elenco-storico-nre",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "elenco-storico-nre"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ricevute-sac",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\",\n  \"tipoOperazione\": 1,\n  \"annoMese\": 202507\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/ricevute-sac",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "ricevute-sac"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "visualizza-ricetta",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\",\n  \"nre\": \"{{nre}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/visualizza-ricetta",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "visualizza-ricetta"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "visualizza-ricetta-storico",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth-token}}",
+                "type": "text"
+              },
+              {
+                "key": "FSE-JWT-Signature",
+                "value": "{{signature-token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pinCode\": \"\",\n  \"codiceRegioneErogatore\": \"{{codRegioneErogatore}}\",\n  \"codiceAslErogatore\": \"{{codiceAslErogatore}}\",\n  \"codiceSsaErogatore\": \"{{codiceSsaErogatore}}\",\n  \"nre\": \"{{nre}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/v1/servizi-erogatore/visualizza-ricetta-storico",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "v1",
+                "servizi-erogatore",
+                "visualizza-ricetta-storico"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "const pad = (num) => (num < 10 ? '0' + num : num);",
+          "",
+          "let now = new Date();",
+          "",
+          "const year = now.getFullYear();",
+          "const month = pad(now.getMonth() + 1);",
+          "const day = pad(now.getDate());",
+          "const hours = pad(now.getHours());",
+          "const minutes = pad(now.getMinutes());",
+          "const seconds = pad(now.getSeconds());",
+          "",
+          "pm.collectionVariables.set(\"dataCorrente\",`${year}-${month}-${day} ${hours}:${minutes}:${seconds}`)",
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "https://api-salute-test.regione.umbria.it/sar"
+    },
+    {
+      "key": "codRegioneErogatore",
+      "value": "100"
+    },
+    {
+      "key": "codiceAslErogatore",
+      "value": "201"
+    },
+    {
+      "key": "codiceSsaErogatore",
+      "value": "888888"
+    },
+    {
+      "key": "cfAssistito",
+      "value": "CRSMRM80A01G478X"
+    },
+    {
+      "key": "dataCorrente",
+      "value": "2026-01-31 13:05:18"
+    },
+    {
+      "key": "auth-token",
+      "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsIng1YyI6Ik1JSUZkVENDQTEyZ0F3SUJBZ0lVTXZvTXZoWDYzeXFHTFYzQVN3bHJ4c1NjZ2VZd0RRWUpLb1pJaHZjTkFRRUxCUUF3VnpFbk1DVUdBMVVFQXd3ZVEwRWdUV2x1YVhOMFpYSnZJR1JsYkd4aElGTmhiSFYwWlNCVVpYTjBNUjh3SFFZRFZRUUtEQlpOYVc1cGMzUmxjbThnWkdWc2JHRWdVMkZzZFhSbE1Rc3dDUVlEVlFRR0V3SkpWREFlRncweU5UQXpNRGN4TkRNMU1ERmFGdzB5T0RBek1EY3hORE0xTURCYU1IWXhDekFKQmdOVkJBWVRBa2xVTVI4d0hRWURWUVFLREJaTmFXNXBjM1JsY204Z1pHVnNiR0VnVTJGc2RYUmxNUjh3SFFZRFZRUmhEQlpEUmpwSlZDMVFVazlXUVZnd01GZ3dNRmd3TURCWk1TVXdJd1lEVlFRRERCeFRNU014TURBalVGVk9WRTlhUlZKUFVGSlBSRlZVVkU5U1JWaFlNSUlCSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQXFBd2ZsQTJULzMvaSs4MWNjOFVIdTliWCswby9tVVRVZkNtaitZdmV6WC9EbXNjcUo0bEFCa0JFZWpyaUFGRTRnN1dWMzZDVmtsaGo1eHpFSWhmNHloeWxsdFJNQ0phckVGTzg5RDJVUmNkTCs1aHRVdkZYbkNXczZnZndOeDdwMk9LRlU1d3lGZUdxM3dHVlQ4MTliVEFlMEJHelhucEZhNXIvZlZsN3JNdlZVd0NIVjhOUjB6WHE4ZVk2SUNRTE0rWkpmbzJ4djBWRDdZTDdOQ3BNMW1xaGx3SzNDK0ZVN0pLem1ldWFHaCtudWZoRnhzQldtNTExVG5welhQaDE2bHFickRUN053T1h6YXAxRmlkWVZFUU5WN00vRnBxNXlNVnFNc3IvUzMzUFk4bGVYVjBSenhBcDZWa1RpekpEK3lHYjVqZ05IU3RnaEVnbDYvckVOd0lEQVFBQm80SUJHRENDQVJRd0h3WURWUjBqQkJnd0ZvQVVGam1wR2dXSnR3OHRzalh0d2dtYXhRT0RJajh3RWdZRFZSMGdCQXN3Q1RBSEJnVXJUQjBCQ3pDQnJRWURWUjBmQklHbE1JR2lNSUdmb0lHY29JR1pob0dXYUhSMGNITTZMeTlqWVhOdloyVnBjM1pwYkM1emIyZGxhUzVwZEM5bGFtSmpZUzl3ZFdKc2FXTjNaV0l2ZDJWaVpHbHpkQzlqWlhKMFpHbHpkRDlqYldROVkzSnNKbWx6YzNWbGNqMURUaVV6UkVOQkswMXBibWx6ZEdWeWJ5dGtaV3hzWVN0VFlXeDFkR1VyVkdWemRDVXlRMDhsTTBSTmFXNXBjM1JsY204clpHVnNiR0VyVTJGc2RYUmxKVEpEUXlVelJFbFVNQjBHQTFVZERnUVdCQlJuQm84Q1NtdWpEb1NrbXA3SXhHM09rU0UwNnpBT0JnTlZIUThCQWY4RUJBTUNCa0F3RFFZSktvWklodmNOQVFFTEJRQURnZ0lCQUN0aFNDUVhEZEc0cnM0aldzb0JUNis1aXRLSkE3ODhWQTVNVCt2QUUyY1FHc2FEdFQyMEpKeGFBNXRFMW01eFJLRU1FejNTVWpQeE1wOHBLOCtNUC9tVFUvLzcxZDQ4UThETHgrWjdYVVhqNUQ0cWY5Y3p2SCtzODl4QnQrTVlMdFBKMGFVODZuNjh2MFN0ZWl3VEMyV2RmeTNpSW9WeW8vVzJSaVQwdlB5YmFVMlB0cUVJNmwzRzJRS29wMlQ0VEFiblpCdWRmeExsN2szK2RKWTBWYnE3V1kydXRkdTFpdDRPaGJlMTNWN0lXWEE0em9HaTJuSEJxOXFMTWcvUWg3Q09wRk5PVDlqdjRMVzFKZlZPM0FwZnhHWmVZZ2JVN3U1OEFWY3NZcEJYSUF3MUZMaVJOUmFXWEVZMElDdVM3WDM2NTdGdm55RFJWeVZuR21NSmRBZ0g2VGJNVmJlQlBTOEtsL2EySG5scklKYVJUWkpGdi9sczZGTWNzYXRJWlJ4aUtYS09TbEFZOElTQmhLRXNJVUhGS3YrNzVGNWNNeklKaEVVQ3lCNFJQWHJqanV2TllhN3o4ZTNrRzkzcDIvTW5pNFBkQytoWGpwNHE4RzBkVDVlaDBSRGRnZ1U1VFViWkgzazNVUGV5SnIvRW1CMUdaclJkLzJFekc5VUpQNzVPdk1tUTFCYTFPeXV0VUZScWF3ZndXYlNhb01MZW1BUyt2N1ZRdGRYZCtmR1ZvS1ZWa01VUzFoVVJtc0MxYk4yczlmWTd2cnhRVFc1MGtCZG1ySVhFUWxzNUhMWU1iSHVpeEVXc2hZT011ZHY3ZnVrRm1jQVJwQ2djSkt5ODNlZHU1UC9lc3JhU1NEV2NPVmJGNlRVeGhVU1N1ZEF5ZTJoN2tZOG9ueWhGIn0.eyJpc3MiOiJpbnRlZ3JpdHk6UzEjMTAwI1BVTlRPWkVST1BST0RVVFRPUkVYWCIsImlhdCI6MTc2OTkzMzAxMywiZXhwIjoxNzcyNTI1MDEzLCJqdGkiOiIwMDY4OWRhMS1iNzMyLTRkYzgtYjNiMC1mN2FjYjA0OGVmYjQiLCJhdWQiOiJodHRwczovL2FwaS1zYWx1dGUtdGVzdC5yZWdpb25lLnVtYnJpYS5pdCIsInN1YiI6IlBST1ZBWDAwWDAwWDAwMFleXl4mMi4xNi44NDAuMS4xMTM4ODMuMi45LjQuMy4yJklTTyJ9.EG-ZbSrwHiueaICRMe_6Ve2wR66C4P0kya704P-RRpwPB_Etv3k7fsOsArjw5xYnYP3J3dQwySvt_ErtnhFk0XycH6F6Y_y7EtJbGeYBIRt-20OpgmZnnks4qa1XFyLlTJNHOHYwuyewI_i39F3drwetsuzfs6xcszl0MySRrWKGFN7QQJU8PrnFhOQYq_T4i-YK4j8OZTjtRGLj2TziuuEXZ3S4UnKCDI4KrsZQmNT6XZS8YjpwqweQ3zjukSB-n6o6NcOIDYZaK5c98IZaVH_gvXrda088ESEic9rHD2-8NHJ47O8j2yhP63Bdxize1Z84UeSR1ttMeM8OqC8btw"
+    },
+    {
+      "key": "signature-token",
+      "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsIng1YyI6Ik1JSUZkVENDQTEyZ0F3SUJBZ0lVTXZvTXZoWDYzeXFHTFYzQVN3bHJ4c1NjZ2VZd0RRWUpLb1pJaHZjTkFRRUxCUUF3VnpFbk1DVUdBMVVFQXd3ZVEwRWdUV2x1YVhOMFpYSnZJR1JsYkd4aElGTmhiSFYwWlNCVVpYTjBNUjh3SFFZRFZRUUtEQlpOYVc1cGMzUmxjbThnWkdWc2JHRWdVMkZzZFhSbE1Rc3dDUVlEVlFRR0V3SkpWREFlRncweU5UQXpNRGN4TkRNMU1ERmFGdzB5T0RBek1EY3hORE0xTURCYU1IWXhDekFKQmdOVkJBWVRBa2xVTVI4d0hRWURWUVFLREJaTmFXNXBjM1JsY204Z1pHVnNiR0VnVTJGc2RYUmxNUjh3SFFZRFZRUmhEQlpEUmpwSlZDMVFVazlXUVZnd01GZ3dNRmd3TURCWk1TVXdJd1lEVlFRRERCeFRNU014TURBalVGVk9WRTlhUlZKUFVGSlBSRlZVVkU5U1JWaFlNSUlCSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQXFBd2ZsQTJULzMvaSs4MWNjOFVIdTliWCswby9tVVRVZkNtaitZdmV6WC9EbXNjcUo0bEFCa0JFZWpyaUFGRTRnN1dWMzZDVmtsaGo1eHpFSWhmNHloeWxsdFJNQ0phckVGTzg5RDJVUmNkTCs1aHRVdkZYbkNXczZnZndOeDdwMk9LRlU1d3lGZUdxM3dHVlQ4MTliVEFlMEJHelhucEZhNXIvZlZsN3JNdlZVd0NIVjhOUjB6WHE4ZVk2SUNRTE0rWkpmbzJ4djBWRDdZTDdOQ3BNMW1xaGx3SzNDK0ZVN0pLem1ldWFHaCtudWZoRnhzQldtNTExVG5welhQaDE2bHFickRUN053T1h6YXAxRmlkWVZFUU5WN00vRnBxNXlNVnFNc3IvUzMzUFk4bGVYVjBSenhBcDZWa1RpekpEK3lHYjVqZ05IU3RnaEVnbDYvckVOd0lEQVFBQm80SUJHRENDQVJRd0h3WURWUjBqQkJnd0ZvQVVGam1wR2dXSnR3OHRzalh0d2dtYXhRT0RJajh3RWdZRFZSMGdCQXN3Q1RBSEJnVXJUQjBCQ3pDQnJRWURWUjBmQklHbE1JR2lNSUdmb0lHY29JR1pob0dXYUhSMGNITTZMeTlqWVhOdloyVnBjM1pwYkM1emIyZGxhUzVwZEM5bGFtSmpZUzl3ZFdKc2FXTjNaV0l2ZDJWaVpHbHpkQzlqWlhKMFpHbHpkRDlqYldROVkzSnNKbWx6YzNWbGNqMURUaVV6UkVOQkswMXBibWx6ZEdWeWJ5dGtaV3hzWVN0VFlXeDFkR1VyVkdWemRDVXlRMDhsTTBSTmFXNXBjM1JsY204clpHVnNiR0VyVTJGc2RYUmxKVEpEUXlVelJFbFVNQjBHQTFVZERnUVdCQlJuQm84Q1NtdWpEb1NrbXA3SXhHM09rU0UwNnpBT0JnTlZIUThCQWY4RUJBTUNCa0F3RFFZSktvWklodmNOQVFFTEJRQURnZ0lCQUN0aFNDUVhEZEc0cnM0aldzb0JUNis1aXRLSkE3ODhWQTVNVCt2QUUyY1FHc2FEdFQyMEpKeGFBNXRFMW01eFJLRU1FejNTVWpQeE1wOHBLOCtNUC9tVFUvLzcxZDQ4UThETHgrWjdYVVhqNUQ0cWY5Y3p2SCtzODl4QnQrTVlMdFBKMGFVODZuNjh2MFN0ZWl3VEMyV2RmeTNpSW9WeW8vVzJSaVQwdlB5YmFVMlB0cUVJNmwzRzJRS29wMlQ0VEFiblpCdWRmeExsN2szK2RKWTBWYnE3V1kydXRkdTFpdDRPaGJlMTNWN0lXWEE0em9HaTJuSEJxOXFMTWcvUWg3Q09wRk5PVDlqdjRMVzFKZlZPM0FwZnhHWmVZZ2JVN3U1OEFWY3NZcEJYSUF3MUZMaVJOUmFXWEVZMElDdVM3WDM2NTdGdm55RFJWeVZuR21NSmRBZ0g2VGJNVmJlQlBTOEtsL2EySG5scklKYVJUWkpGdi9sczZGTWNzYXRJWlJ4aUtYS09TbEFZOElTQmhLRXNJVUhGS3YrNzVGNWNNeklKaEVVQ3lCNFJQWHJqanV2TllhN3o4ZTNrRzkzcDIvTW5pNFBkQytoWGpwNHE4RzBkVDVlaDBSRGRnZ1U1VFViWkgzazNVUGV5SnIvRW1CMUdaclJkLzJFekc5VUpQNzVPdk1tUTFCYTFPeXV0VUZScWF3ZndXYlNhb01MZW1BUyt2N1ZRdGRYZCtmR1ZvS1ZWa01VUzFoVVJtc0MxYk4yczlmWTd2cnhRVFc1MGtCZG1ySVhFUWxzNUhMWU1iSHVpeEVXc2hZT011ZHY3ZnVrRm1jQVJwQ2djSkt5ODNlZHU1UC9lc3JhU1NEV2NPVmJGNlRVeGhVU1N1ZEF5ZTJoN2tZOG9ueWhGIn0.eyJpc3MiOiJpbnRlZ3JpdHk6UzEjMTAwI1BVTlRPWkVST1BST0RVVFRPUkVYWCIsImlhdCI6MTc2OTkzMzAxMywiZXhwIjoxNzcyNTI1MDEzLCJqdGkiOiIwMDY4OWRhMS1iNzMyLTRkYzgtYjNiMC1mN2FjYjA0OGVmYjQiLCJhdWQiOiJodHRwczovL2FwaS1zYWx1dGUtdGVzdC5yZWdpb25lLnVtYnJpYS5pdCIsInN1YiI6IlBST1ZBWDAwWDAwWDAwMFleXl4mMi4xNi44NDAuMS4xMTM4ODMuMi45LjQuMy4yJklTTyIsInN1YmplY3Rfb3JnYW5pemF0aW9uX2lkIjoiMTAwIiwic3ViamVjdF9vcmdhbml6YXRpb24iOiJSZWdpb25lIFVtYnJpYSIsImxvY2FsaXR5IjoiQXppZW5kYSBVU0wgVW1icmlhIDFeXl5eXiYyLjE2Ljg0MC4xLjExMzg4My4yLjkuNC4xLjEmSVNPXl5eXjEwMDIwMSIsInN1YmplY3Rfcm9sZSI6IkFQUiIsInBlcnNvbl9pZCI6IkNSU01STTgwQTAxRzQ3OFheXl4mMi4xNi44NDAuMS4xMTM4ODMuMi45LjQuMy4yJklTTyIsInBhdGllbnRfY29uc2VudCI6InRydWUiLCJwdXJwb3NlX29mX3VzZSI6IlRSRUFUTUVOVCIsImFjdGlvbl9pZCI6IkNSRUFURSIsInN1YmplY3RfYXBwbGljYXRpb25faWQiOiJCQVJNRUQiLCJzdWJqZWN0X2FwcGxpY2F0aW9uX3ZlbmRvciI6IkZPTyBTUEEiLCJzdWJqZWN0X2FwcGxpY2F0aW9uX3ZlcnNpb24iOiJWLjQuMi4wIn0.C-6Phtl3hHqHzxZnHEmHWArkdW8P5-V4_I9lcU1RXZMH4S4dEgOVtHAI8c2FYfB7aWt3Dbjd1q-96CPYlDn83yYp-jSjHBCVyaUr8wgFyaGuiZmOqyEd9KnDeav_LQbc9-Rr7XsZydXWBWrPSkLeHSZBx-CNTSyReCHbgShuFiX76eOgajAhlGEf7tzG-OMsaKUZlEl37bQ7LCKi03EXnxvsgmwhbyKAWkRYfR0SM0mCqPx932TDilE0k9bvBxVKkCzku4qkZr6x6MNC71YEgcKFNZMlapb-EBJAbon57cxUqMTz-ntHZQYCbx7yzmXQ-7YI73Oh86C12lTe4zOCoA"
+    },
+    {
+      "key": "nre",
+      "value": "1000A4005046001"
+    }
+  ]
+}
