@@ -1,0 +1,963 @@
+openapi: 3.1.0
+info:
+  title: SAR Umbria OpenAPI - Servizi per l'erogatore ricetta differita
+  version: v1
+servers:
+  - url: https://api-salute-test.regione.umbria.it/sar
+    description: Ambiente di test
+    x-sandbox: true
+  - url: https://api-salute.regione.umbria.it/sar
+    description: Ambiente di produzione
+    x-sandbox: false
+paths:
+  /v1/servizi-ricetta-differita/visualizza-erogato:
+    post:
+      tags:
+        - differita-controller
+      operationId: visualizzaErogatoDifferita
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VisualizzaErogatoDiffRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VisualizzaErogatoDiffRicevuta'
+  /v1/servizi-ricetta-differita/invio-erogato:
+    post:
+      tags:
+        - differita-controller
+      operationId: invioErogatoDifferita
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvioErogatoDiffRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InvioErogatoDiffRicevuta'
+  /v1/servizi-ricetta-differita/annulla-erogato:
+    post:
+      tags:
+        - differita-controller
+      operationId: annullaErogatoDifferita
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnullaErogatoDiffRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AnnullaErogatoDiffRicevuta'
+  /v1/servizi-ricetta-differita/invio-segnalazione:
+    post:
+      tags:
+        - differita-controller
+      operationId: invioSegnalazione
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvioSegnalazioneRichiesta'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InvioSegnalazioneRicevuta'
+  /v1/servizi-ricetta-differita/ricerca-segnalazioni:
+    post:
+      tags:
+        - differita-controller
+      operationId: ricercaSegnalazioni
+      parameters:
+        - name: arg1
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/RicercaSegnalazioniRichiesta'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RicercaSegnalazioniRicevuta'
+  /v1/servizi-ricetta-differita/ricerca-erogato:
+    post:
+      tags:
+        - differita-controller
+      operationId: ricercaErogatoDifferita
+      parameters:
+        - name: arg1
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/RicercaErogatoDiffRichiesta'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RicercaErogatoDiffRicevuta'
+components:
+  schemas:
+    InvioSegnalazioneRichiesta:
+      type: object
+      properties:
+        pinCode:
+          type: string
+        codiceRegioneErogatore:
+          type: string
+        codiceAslErogatore:
+          type: string
+        codiceSsaErogatore:
+          type: string
+        pwd:
+          type: string
+        codMotivazione:
+          type: string
+        dataDal:
+          type: string
+        note:
+          type: string
+        dispRic1:
+          type: string
+        dispRic2:
+          type: string
+        dispRic3:
+          type: string
+      required:
+        - codMotivazione
+        - codiceAslErogatore
+        - codiceRegioneErogatore
+        - codiceSsaErogatore
+        - dataDal
+        - pinCode
+      xml:
+        name: InvioSegnalazioneRichiesta
+        namespace: http://inviosegnalazionerichiesta.xsd.dem.sanita.finanze.it
+    InvioSegnalazioneRicevuta:
+      type: object
+      properties:
+        numSegnalazioneAnomalia:
+          type: string
+        dataRicezione:
+          type: string
+        codEsitoSegnalazione:
+          type: string
+        elencoErroriRicette:
+          $ref: '#/components/schemas/ElencoErroriRicetteType'
+          xml:
+            name: ElencoErroriRicette
+        elencoComunicazioni:
+          $ref: '#/components/schemas/ElencoComunicazioniType'
+          xml:
+            name: ElencoComunicazioni
+      required:
+        - codEsitoSegnalazione
+      xml:
+        name: InvioSegnalazioneRicevuta
+        namespace: http://inviosegnalazionericevuta.xsd.dem.sanita.finanze.it
+    ComunicazioneType:
+      type: object
+      properties:
+        codice:
+          type: string
+        messaggio:
+          type: string
+      required:
+        - codice
+        - messaggio
+    ElencoComunicazioniType:
+      type: object
+      properties:
+        comunicazione:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComunicazioneType'
+          xml:
+            name: Comunicazione
+      required:
+        - comunicazione
+    ElencoErroriRicetteType:
+      type: object
+      properties:
+        erroreRicetta:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErroreRicettaType'
+          xml:
+            name: ErroreRicetta
+      required:
+        - erroreRicetta
+    ErroreRicettaType:
+      type: object
+      properties:
+        codEsito:
+          type: string
+        esito:
+          type: string
+        progPresc:
+          type: string
+        tipoErrore:
+          type: string
+      required:
+        - codEsito
+    DettaglioPrescrizioneInvioDiffErogatoType:
+      type: object
+      properties:
+        codProdPrest:
+          type: string
+        descrProdPrest:
+          type: string
+        codGruppoEquival:
+          type: string
+        descrGruppoEquival:
+          type: string
+        descrTestoLiberoNote:
+          type: string
+        nonSost:
+          type: string
+        motivazNote:
+          type: string
+        codMotivazione:
+          type: string
+        notaProd:
+          type: string
+        quantita:
+          type: string
+        prescrizione1:
+          type: string
+        prescrizione2:
+          type: string
+        codProdPrestErog:
+          type: string
+        descrProdPrestErog:
+          type: string
+        flagErog:
+          type: string
+        motivazSostProd:
+          type: string
+        targa:
+          type: string
+        dichTargaDoppia:
+          type: string
+        codBranca:
+          type: string
+        tipoErogazioneFarm:
+          type: string
+        prezzo:
+          type: string
+        ticketConfezione:
+          type: string
+        diffGenerico:
+          type: string
+        quantitaErogata:
+          type: string
+        dataIniErog:
+          type: string
+        dataFineErog:
+          type: string
+        prezzoRimborso:
+          type: string
+        onereProd:
+          type: string
+        scontoSSN:
+          type: string
+        extraScontoIndustria:
+          type: string
+        extraScontoPayback:
+          type: string
+        extraScontoDL31052010:
+          type: string
+        codPresidio:
+          type: string
+        codReparto:
+          type: string
+        dispFust1:
+          type: string
+        dispFust2:
+          type: string
+        dispFust3:
+          type: string
+        dispFust4:
+          type: string
+        dispFust5:
+          type: string
+        codCatalogoPrescr:
+          type: string
+        tipoAccesso:
+          type: string
+        codCatalogoErog:
+          type: string
+        garanziaTempiMax:
+          type: string
+        dataPrenotazione:
+          type: string
+      required:
+        - codProdPrestErog
+        - dataFineErog
+        - dataIniErog
+        - prezzo
+        - quantitaErogata
+    ElencoDettagliPrescrInviiDiffErogatoType:
+      type: object
+      properties:
+        dettaglioPrescrizioneInvioDiffErogato:
+          type: array
+          items:
+            $ref: '#/components/schemas/DettaglioPrescrizioneInvioDiffErogatoType'
+          xml:
+            name: DettaglioPrescrizioneInvioDiffErogato
+    InvioErogatoDiffRichiesta:
+      type: object
+      properties:
+        pinCode:
+          type: string
+        codiceRegioneErogatore:
+          type: string
+        codiceAslErogatore:
+          type: string
+        codiceSsaErogatore:
+          type: string
+        pwd:
+          type: string
+        numSegnalazioneAnomalia:
+          type: string
+        nre:
+          type: string
+        cfMedico1:
+          type: string
+        cfAssistito:
+          type: string
+        tipoRic:
+          type: string
+        cognNome:
+          type: string
+        indirizzo:
+          type: string
+        codEsenzione:
+          type: string
+        nonEsente:
+          type: string
+        codDiagnosi:
+          type: string
+        descrizioneDiagnosi:
+          type: string
+        dataCompilazione:
+          type: string
+        tipoVisita:
+          type: string
+        dispReg:
+          type: string
+        provAssistito:
+          type: string
+        aslAssistito:
+          type: string
+        indicazionePrescr:
+          type: string
+        altro:
+          type: string
+        classePriorita:
+          type: string
+        statoEstero:
+          type: string
+        istituzCompetente:
+          type: string
+        numIdentPers:
+          type: string
+        numIdentTess:
+          type: string
+        dataNascitaEstero:
+          type: string
+        dataScadTessera:
+          type: string
+        prescrizioneFruita:
+          type: string
+        tipoErogazioneSpec:
+          type: string
+        ticket:
+          type: string
+        quotaFissa:
+          type: string
+        franchigia:
+          type: string
+        galDirChiamAltro:
+          type: string
+        reddito:
+          type: string
+        dataSpedizione:
+          type: string
+        codAutenticazione:
+          type: string
+        dispRic1:
+          type: string
+        dispRic2:
+          type: string
+        dispRic3:
+          type: string
+        dispRic4:
+          type: string
+        dispRic5:
+          type: string
+        elencoDettagliPrescrInviiDiffErogato:
+          $ref: '#/components/schemas/ElencoDettagliPrescrInviiDiffErogatoType'
+          xml:
+            name: ElencoDettagliPrescrInviiDiffErogato
+      required:
+        - codiceAslErogatore
+        - codiceRegioneErogatore
+        - codiceSsaErogatore
+        - dataSpedizione
+        - elencoDettagliPrescrInviiDiffErogato
+        - nre
+        - numSegnalazioneAnomalia
+        - pinCode
+      xml:
+        name: InvioErogatoDiffRichiesta
+        namespace: http://invioerogatodiffrichiesta.xsd.dem.sanita.finanze.it
+    InvioErogatoDiffRicevuta:
+      type: object
+      properties:
+        idRicetta:
+          type: string
+        nre:
+          type: string
+        dataRicezione:
+          type: string
+        codAutenticazione:
+          type: string
+        codEsitoInserimento:
+          type: string
+        elencoErroriRicette:
+          $ref: '#/components/schemas/ElencoErroriRicetteType'
+          xml:
+            name: ElencoErroriRicette
+        elencoComunicazioni:
+          $ref: '#/components/schemas/ElencoComunicazioniType'
+          xml:
+            name: ElencoComunicazioni
+      required:
+        - codEsitoInserimento
+      xml:
+        name: InvioErogatoDiffRicevuta
+        namespace: http://invioerogatodiffricevuta.xsd.dem.sanita.finanze.it
+    AnnullaErogatoDiffRichiesta:
+      type: object
+      properties:
+        pinCode:
+          type: string
+        codiceRegioneErogatore:
+          type: string
+        codiceAslErogatore:
+          type: string
+        codiceSsaErogatore:
+          type: string
+        pwd:
+          type: string
+        idRicetta:
+          type: string
+        nre:
+          type: string
+        cfAssistito:
+          type: string
+        codAnnullamentoDiff:
+          type: string
+        disp1:
+          type: string
+        disp2:
+          type: string
+        disp3:
+          type: string
+      required:
+        - codiceAslErogatore
+        - codiceRegioneErogatore
+        - codiceSsaErogatore
+        - idRicetta
+        - nre
+        - pinCode
+      xml:
+        name: AnnullaErogatoDiffRichiesta
+        namespace: http://annullaerogatodiffrichiesta.xsd.dem.sanita.finanze.it
+    AnnullaErogatoDiffRicevuta:
+      type: object
+      properties:
+        idRicetta:
+          type: string
+        nre:
+          type: string
+        dataRicezione:
+          type: string
+        codAutenticazione:
+          type: string
+        codEsitoAnnullamento:
+          type: string
+        elencoErroriRicette:
+          $ref: '#/components/schemas/ElencoErroriRicetteType'
+          xml:
+            name: ElencoErroriRicette
+        elencoComunicazioni:
+          $ref: '#/components/schemas/ElencoComunicazioniType'
+          xml:
+            name: ElencoComunicazioni
+      required:
+        - codEsitoAnnullamento
+      xml:
+        name: AnnullaErogatoDiffRicevuta
+        namespace: http://annullaerogatodiffricevuta.xsd.dem.sanita.finanze.it
+    ElencoErroriType:
+      type: object
+      properties:
+        errore:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErroreType'
+          xml:
+            name: Errore
+      required:
+        - errore
+    ErroreType:
+      type: object
+      properties:
+        codEsito:
+          type: string
+        esito:
+          type: string
+        tipoErrore:
+          type: string
+      required:
+        - codEsito
+    VisualizzaErogatoDiffRichiesta:
+      type: object
+      properties:
+        pinCode:
+          type: string
+        codiceRegioneErogatore:
+          type: string
+        codiceAslErogatore:
+          type: string
+        codiceSsaErogatore:
+          type: string
+        pwd:
+          type: string
+        idRicetta:
+          type: string
+        nre:
+          type: string
+        cfAssistito:
+          type: string
+        numSegnalazioneAnomalia:
+          type: string
+        disp1:
+          type: string
+        disp2:
+          type: string
+        disp3:
+          type: string
+      required:
+        - codiceAslErogatore
+        - codiceRegioneErogatore
+        - codiceSsaErogatore
+        - idRicetta
+        - nre
+        - pinCode
+      xml:
+        name: VisualizzaErogatoDiffRichiesta
+        namespace: http://visualizzaerogatodiffrichiesta.xsd.dem.sanita.finanze.it
+    DettaglioPrescrizioneVisRicDiffErogatoType:
+      type: object
+      properties:
+        codProdPrest:
+          type: string
+        descrProdPrest:
+          type: string
+        codGruppoEquival:
+          type: string
+        descrGruppoEquival:
+          type: string
+        descrTestoLiberoNote:
+          type: string
+        nonSost:
+          type: string
+        motivazNote:
+          type: string
+        codMotivazione:
+          type: string
+        notaProd:
+          type: string
+        quantita:
+          type: string
+        prescrizione1:
+          type: string
+        prescrizione2:
+          type: string
+        codProdPrestErog:
+          type: string
+        descrProdPrestErog:
+          type: string
+        flagErog:
+          type: string
+        motivazSostProd:
+          type: string
+        targa:
+          type: string
+        dichTargaDoppia:
+          type: string
+        codBranca:
+          type: string
+        tipoErogazioneFarm:
+          type: string
+        prezzo:
+          type: string
+        ticketConfezione:
+          type: string
+        diffGenerico:
+          type: string
+        quantitaErogata:
+          type: string
+        dataIniErog:
+          type: string
+        dataFineErog:
+          type: string
+        prezzoRimborso:
+          type: string
+        onereProd:
+          type: string
+        scontoSSN:
+          type: string
+        extraScontoIndustria:
+          type: string
+        extraScontoPayback:
+          type: string
+        extraScontoDL31052010:
+          type: string
+        codPresidio:
+          type: string
+        codReparto:
+          type: string
+        dispFust1:
+          type: string
+        dispFust2:
+          type: string
+        dispFust3:
+          type: string
+        dispFust4:
+          type: string
+        dispFust5:
+          type: string
+        codCatalogoPrescr:
+          type: string
+        tipoAccesso:
+          type: string
+        codCatalogoErog:
+          type: string
+        garanziaTempiMax:
+          type: string
+        dataPrenotazione:
+          type: string
+      required:
+        - codProdPrestErog
+        - dataFineErog
+        - dataIniErog
+        - prezzo
+        - quantitaErogata
+    DettaglioSegnalazioneType:
+      type: object
+      properties:
+        numSegnalazioneAnomalia:
+          type: string
+        dataInizio:
+          type: string
+        dataFine:
+          type: string
+        motivazione:
+          type: string
+        note:
+          type: string
+    ElencoDettagliPrescrVisRicDiffErogatoType:
+      type: object
+      properties:
+        dettaglioPrescrizioneVisRicDiffErogato:
+          type: array
+          items:
+            $ref: '#/components/schemas/DettaglioPrescrizioneVisRicDiffErogatoType'
+          xml:
+            name: DettaglioPrescrizioneVisRicDiffErogato
+    VisualizzaErogatoDiffRicevuta:
+      type: object
+      properties:
+        idRicetta:
+          type: string
+        nre:
+          type: string
+        cfMedico1:
+          type: string
+        cfAssistito:
+          type: string
+        tipoRic:
+          type: string
+        cognNome:
+          type: string
+        indirizzo:
+          type: string
+        codEsenzione:
+          type: string
+        nonEsente:
+          type: string
+        codDiagnosi:
+          type: string
+        descrizioneDiagnosi:
+          type: string
+        dataCompilazione:
+          type: string
+        tipoVisita:
+          type: string
+        dispReg:
+          type: string
+        provAssistito:
+          type: string
+        aslAssistito:
+          type: string
+        indicazionePrescr:
+          type: string
+        altro:
+          type: string
+        classePriorita:
+          type: string
+        statoEstero:
+          type: string
+        istituzCompetente:
+          type: string
+        numIdentPers:
+          type: string
+        numIdentTess:
+          type: string
+        dataNascitaEstero:
+          type: string
+        dataScadTessera:
+          type: string
+        prescrizioneFruita:
+          type: string
+        tipoErogazioneSpec:
+          type: string
+        ticket:
+          type: string
+        quotaFissa:
+          type: string
+        franchigia:
+          type: string
+        galDirChiamAltro:
+          type: string
+        reddito:
+          type: string
+        dataSpedizione:
+          type: string
+        codAutenticazione:
+          type: string
+        dispRic1:
+          type: string
+        dispRic2:
+          type: string
+        dispRic3:
+          type: string
+        dispRic4:
+          type: string
+        dispRic5:
+          type: string
+        elencoDettagliPrescrVisRicDiffErogato:
+          $ref: '#/components/schemas/ElencoDettagliPrescrVisRicDiffErogatoType'
+          xml:
+            name: ElencoDettagliPrescrVisRicDiffErogato
+        dettaglioSegnalazione:
+          type: array
+          items:
+            $ref: '#/components/schemas/DettaglioSegnalazioneType'
+          xml:
+            name: DettaglioSegnalazione
+        codEsitoVisualizzaRicettaDiff:
+          type: string
+        elencoErroriRicette:
+          $ref: '#/components/schemas/ElencoErroriRicetteType'
+          xml:
+            name: ElencoErroriRicette
+        elencoComunicazioni:
+          $ref: '#/components/schemas/ElencoComunicazioniType'
+          xml:
+            name: ElencoComunicazioni
+      required:
+        - codEsitoVisualizzaRicettaDiff
+      xml:
+        name: VisualizzaErogatoDiffRicevuta
+        namespace: http://visualizzaerogatodiffricevuta.xsd.dem.sanita.finanze.it
+    RicercaSegnalazioniRichiesta:
+      type: object
+      properties:
+        pinCode:
+          type: string
+        codiceRegioneErogatore:
+          type: string
+        codiceAslErogatore:
+          type: string
+        codiceSsaErogatore:
+          type: string
+        pwd:
+          type: string
+        numSegnalazioneAnomalia:
+          type: string
+        meseAnno:
+          type: string
+        dispRic1:
+          type: string
+        dispRic2:
+          type: string
+        dispRic3:
+          type: string
+      required:
+        - codiceAslErogatore
+        - codiceRegioneErogatore
+        - codiceSsaErogatore
+        - pinCode
+      xml:
+        name: RicercaSegnalazioniRichiesta
+        namespace: http://ricercasegnalazionirichiesta.xsd.dem.sanita.finanze.it
+    ElencoSegnalazioniType:
+      type: object
+      properties:
+        dettaglioSegnalazione:
+          type: array
+          items:
+            $ref: '#/components/schemas/DettaglioSegnalazioneType'
+          xml:
+            name: DettaglioSegnalazione
+    RicercaSegnalazioniRicevuta:
+      type: object
+      properties:
+        codEsitoRicercaSegnalazioni:
+          type: string
+        totaleSegnalazioni:
+          type: string
+        elencoSegnalazioni:
+          $ref: '#/components/schemas/ElencoSegnalazioniType'
+          xml:
+            name: ElencoSegnalazioni
+        elencoErroriRicette:
+          $ref: '#/components/schemas/ElencoErroriRicetteType'
+          xml:
+            name: ElencoErroriRicette
+        elencoComunicazioni:
+          $ref: '#/components/schemas/ElencoComunicazioniType'
+          xml:
+            name: ElencoComunicazioni
+      required:
+        - codEsitoRicercaSegnalazioni
+        - totaleSegnalazioni
+      xml:
+        name: RicercaSegnalazioniRicevuta
+        namespace: http://ricercasegnalazioniricevuta.xsd.dem.sanita.finanze.it
+    RicercaErogatoDiffRichiesta:
+      type: object
+      properties:
+        pinCode:
+          type: string
+        codiceRegioneErogatore:
+          type: string
+        codiceAslErogatore:
+          type: string
+        codiceSsaErogatore:
+          type: string
+        pwd:
+          type: string
+        numSegnalazioneAnomalia:
+          type: string
+        idRicetta:
+          type: string
+        nre:
+          type: string
+        cfAssistito:
+          type: string
+        dataPeriodoDal:
+          type: string
+        dataPeriodoAl:
+          type: string
+        tipoData:
+          type: string
+        dispRic1:
+          type: string
+        dispRic2:
+          type: string
+        dispRic3:
+          type: string
+      required:
+        - codiceAslErogatore
+        - codiceRegioneErogatore
+        - codiceSsaErogatore
+        - pinCode
+      xml:
+        name: RicercaErogatoDiffRichiesta
+        namespace: http://ricercaerogatodiffrichiesta.xsd.dem.sanita.finanze.it
+    DettaglioSinteticoRicettaDiffType:
+      type: object
+      properties:
+        idRicetta:
+          type: string
+        nre:
+          type: string
+        dataErogazione:
+          type: string
+        dataTrasmissione:
+          type: string
+        numSegnalazioneAnomalia:
+          type: string
+    ElencoRicetteDiffType:
+      type: object
+      properties:
+        dettaglioSinteticoRicettaDiff:
+          type: array
+          items:
+            $ref: '#/components/schemas/DettaglioSinteticoRicettaDiffType'
+          xml:
+            name: DettaglioSinteticoRicettaDiff
+    RicercaErogatoDiffRicevuta:
+      type: object
+      properties:
+        totaleRicette:
+          type: string
+        elencoRicetteDiff:
+          $ref: '#/components/schemas/ElencoRicetteDiffType'
+          xml:
+            name: ElencoRicetteDiff
+        codEsitoRicercaErogatoDiff:
+          type: string
+        elencoErroriRicette:
+          $ref: '#/components/schemas/ElencoErroriRicetteType'
+          xml:
+            name: ElencoErroriRicette
+        elencoComunicazioni:
+          $ref: '#/components/schemas/ElencoComunicazioniType'
+          xml:
+            name: ElencoComunicazioni
+      required:
+        - codEsitoRicercaErogatoDiff
+        - totaleRicette
+      xml:
+        name: RicercaErogatoDiffRicevuta
+        namespace: http://ricercaerogatodiffricevuta.xsd.dem.sanita.finanze.it
