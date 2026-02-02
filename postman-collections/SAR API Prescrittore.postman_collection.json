@@ -57,7 +57,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"CodRegione\": {{codRegione}},\n    \"IdentificativoLotto\": 0,\n    \"CFMedico\": {{cfMedico}}\n}",
+              "raw": "{\n    \"CodRegione\": \"{{codRegione}}\",\n    \"IdentificativoLotto\": \"0\",\n    \"CFMedico\": \"{{cfMedico}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -99,7 +99,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"pinCode\": \"\",\n    \"codRegione\": {{codRegione}},\n    \"cfMedico\": \"{{cfMedico}}\",\n    \"tipoPrescr\": \"P\",\n    \"dataCompilazioneRicettaDal\": \"2025-07-01 00:00:00\",\n    \"dataCompilazioneRicettaAl\": \"2025-07-31 23:59:59\"\n}",
+              "raw": "{\n    \"pinCode\": \"\",\n    \"codRegione\": \"{{codRegione}}\",\n    \"cfMedico\": \"{{cfMedico}}\",\n    \"tipoPrescr\": \"P\",\n    \"dataCompilazioneRicettaDal\": \"2025-07-01 00:00:00\",\n    \"dataCompilazioneRicettaAl\": \"2025-07-31 23:59:59\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
