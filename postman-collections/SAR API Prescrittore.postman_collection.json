@@ -841,54 +841,6 @@
           "response": []
         }
       ]
-    },
-    {
-      "name": "token",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "if (pm.response.code >= 200 && pm.response.code < 300) {\r",
-              "    let response = pm.response.json();\r",
-              "    let authToken = response.authorization;\r",
-              "    let signToken = response.signature;\r",
-              "    pm.collectionVariables.set('auth-token', authToken);\r",
-              "    pm.collectionVariables.set('signature-token', signToken);\r",
-              "}\r",
-              ""
-            ],
-            "type": "text/javascript",
-            "packages": {},
-            "requests": {}
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"certificateId\": \"produttore-sign\",\r\n    \"body\": {\r\n        \"action\": \"CREATE\",\r\n        \"user\": \"{{cfMedico}}^^^&2.16.840.1.113883.2.9.4.3.2&ISO\",\r\n        \"userRole\": \"APR\",\r\n        \"purposeOfUse\": \"TREATMENT\",\r\n        \"patientConsent\": true,\r\n        \"locality\": \"Azienda USL Umbria 1^^^^^&2.16.840.1.113883.2.9.4.1.1&ISO^^^^{{codRegione}}{{codAslAo}}\",\r\n        \"personId\": \"{{cfAssistito}}^^^&2.16.840.1.113883.2.9.4.3.2&ISO\",\r\n        \"subjectApplicationId\": \"BARMED\",\r\n        \"subjectApplicationVendor\": \"FOO SPA\",\r\n        \"subjectApplicationVersion\": \"V.4.2.0\",\r\n        \"audiences\": [\"https://api-salute-test.regione.umbria.it\"]\r\n    }\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8888/tokens",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8888",
-          "path": [
-            "tokens"
-          ]
-        }
-      },
-      "response": []
     }
   ],
   "event": [
